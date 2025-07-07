@@ -37,41 +37,14 @@ yarn install
 pnpm install
 ```
 
-### 3. 環境配置
-
-複製環境變量模板：
-
-```bash
-cp .env.example .env.local
-```
-
-編輯 `.env.local` 文件，配置以下變量：
-
-```env
-# API Configuration
-API_BASE_URL=http://localhost:5200
-API_KEY=your_api_key_here
-DEFAULT_MODEL=gpt-4o
-DEFAULT_PROVIDER=openai
-
-# Application Configuration
-APP_NAME=澳門旅遊大學學士學位課程手冊
-APP_VERSION=2024/2025
-CONTACT_PHONE=8598-2012
-CONTACT_EMAIL=enrolment@utm.edu.mo
-
-# Next.js Configuration
-NEXT_PUBLIC_APP_URL=http://localhost:3000
-```
-
-### 4. 準備資源文件
+### 3. 準備資源文件
 
 將以下文件放置在 `public` 目錄下：
 - `chaticon_1.jpg` - WhatsApp聊天圖標
 - `chaticon_2.jpg` - AI助理聊天圖標
 - `favicon.ico` - 網站圖標
 
-### 5. 啟動開發服務器
+### 4. 啟動開發服務器
 
 ```bash
 npm run dev
@@ -83,7 +56,7 @@ pnpm dev
 
 打開 [http://localhost:3000](http://localhost:3000) 查看應用。
 
-## 項目結構
+## 5. 項目結構
 
 ```
 utm-handbook-nextjs/
@@ -100,7 +73,7 @@ utm-handbook-nextjs/
 │   ├── StatusIndicator.tsx
 │   └── ChatIcons.tsx
 ├── public/                # 靜態資源
-├── .env.example           # 環境變量模板
+├── .env                   # 環境變量模板
 ├── next.config.js         # Next.js 配置
 ├── tailwind.config.js     # Tailwind CSS 配置
 ├── package.json           # 項目依賴
@@ -182,7 +155,7 @@ npm start
 
 確保在生產環境中設置所有必要的環境變量：
 
-```env
+```.env
 NODE_ENV=production
 API_BASE_URL=https://your-api-server.com
 API_KEY=your_production_api_key
@@ -439,26 +412,3 @@ npm run test:e2e
 ## 許可證
 
 本項目使用 [許可證類型] 許可證。詳情請查看 LICENSE 文件。
-
----
-
-## 從PHP版本遷移
-
-如果您正在從原始PHP版本遷移，請注意以下差異：
-
-1. **路由系統**: 從PHP的文件路由改為Next.js的App Router
-2. **狀態管理**: 從PHP會話改為React狀態管理
-3. **API調用**: 從直接PHP函數調用改為REST API
-4. **樣式系統**: 從自定義CSS改為Tailwind CSS
-
-### 遷移檢查清單
-
-- [ ] 環境變量配置
-- [ ] 靜態資源文件放置
-- [ ] API端點測試
-- [ ] 響應式設計驗證
-- [ ] 瀏覽器兼容性測試
-- [ ] 性能測試
-- [ ] 安全性檢查
-
-完成這些步驟後，您的Next.js版本應該能夠完全替代原始的PHP版本，並提供更好的用戶體驗和開發體驗。
