@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
 import { 
   Home, 
   FileText, 
@@ -38,11 +37,14 @@ const Homepage = () => {
 
   const checkApiStatus = async () => {
     try {
-      const response = await fetch('/api/health', {
+      const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
-        }
+        },
+        body: JSON.stringify({
+          action: 'health'
+        })
       })
       
       if (response.ok) {
@@ -136,87 +138,46 @@ const Homepage = () => {
     }
   ]
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  }
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5
-      }
-    }
-  }
-
   return (
-    <div className="min-h-screen bg-gradient-primary">
+    <div className="min-h-screen bg-gradient-to-br from-blue-400 via-purple-500 to-purple-700">
       <StatusIndicator status={apiStatus} />
       
       <div className="container mx-auto px-4 py-6 max-w-7xl">
         {/* Header */}
-        <motion.header 
-          className="glass rounded-2xl p-8 mb-8 text-center shadow-float"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <h1 className="text-primary-700 text-4xl md:text-5xl font-bold mb-3">
+        <header className="bg-white/95 backdrop-blur-sm rounded-2xl p-8 mb-8 text-center shadow-xl fade-in">
+          <h1 className="text-blue-900 text-4xl md:text-5xl font-bold mb-3">
             澳門旅遊大學
           </h1>
-          <h2 className="text-primary-500 text-2xl md:text-3xl mb-4">
+          <h2 className="text-blue-600 text-2xl md:text-3xl mb-4">
             學士學位課程手冊（中文學制）
           </h2>
-          <div className="inline-block bg-gradient-secondary text-white px-6 py-3 rounded-full text-xl font-bold">
+          <div className="inline-block bg-gradient-to-r from-orange-400 to-orange-600 text-white px-6 py-3 rounded-full text-xl font-bold">
             {process.env.APP_VERSION || '2024/2025'}
           </div>
-        </motion.header>
+        </header>
 
         {/* Directory Grid */}
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           {sections.map((section, index) => (
-            <div key={index}>
+            <div key={index} className="fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
               {/* Chapter Dividers */}
               {index === 5 && (
-                <motion.div 
-                  className="col-span-full bg-gradient-to-r from-orange-500 to-orange-600 text-white text-center py-5 px-6 rounded-2xl mb-6 font-bold text-xl shadow-lg"
-                  variants={cardVariants}
-                >
+                <div className="col-span-full bg-gradient-to-r from-orange-500 to-orange-600 text-white text-center py-5 px-6 rounded-2xl mb-6 font-bold text-xl shadow-lg fade-in">
                   第二章 – 學士學位課程規條
-                </motion.div>
+                </div>
               )}
               {index === 6 && (
-                <motion.div 
-                  className="col-span-full bg-gradient-to-r from-orange-500 to-orange-600 text-white text-center py-5 px-6 rounded-2xl mb-6 font-bold text-xl shadow-lg"
-                  variants={cardVariants}
-                >
+                <div className="col-span-full bg-gradient-to-r from-orange-500 to-orange-600 text-white text-center py-5 px-6 rounded-2xl mb-6 font-bold text-xl shadow-lg fade-in">
                   附錄
-                </motion.div>
+                </div>
               )}
 
-              <motion.div 
-                className={`glass rounded-2xl p-6 shadow-float section-card h-full ${section.className || ''}`}
-                variants={cardVariants}
-                whileHover={{ y: -8, boxShadow: '0 15px 40px rgba(0, 0, 0, 0.15)' }}
-              >
+              <div className={`bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 h-full ${section.className || ''}`}>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="text-primary-500">
+                  <div className="text-blue-600">
                     {section.icon}
                   </div>
-                  <h3 className="text-primary-700 text-xl font-bold">
+                  <h3 className="text-blue-900 text-xl font-bold">
                     {section.title}
                   </h3>
                 </div>
@@ -226,25 +187,20 @@ const Homepage = () => {
                     <li key={pageIndex}>
                       <Link 
                         href={page.href}
-                        className="page-link block py-2 px-3 text-gray-600 hover:text-primary-500 rounded-lg transition-all duration-300"
+                        className="block py-2 px-3 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-300 hover:translate-x-1"
                       >
                         {page.title}
                       </Link>
                     </li>
                   ))}
                 </ul>
-              </motion.div>
+              </div>
             </div>
           ))}
-        </motion.div>
+        </div>
 
         {/* Footer */}
-        <motion.footer 
-          className="text-center text-white/80 py-6"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.5 }}
-        >
+        <footer className="text-center text-white/90 py-6 fade-in">
           <p className="mb-2">© 2024 澳門旅遊大學 Macao University of Tourism</p>
           <p className="mb-2">www.utm.edu.mo</p>
           <div className="flex items-center justify-center gap-4 text-sm">
@@ -257,7 +213,7 @@ const Homepage = () => {
               <span>{process.env.CONTACT_EMAIL || 'enrolment@utm.edu.mo'}</span>
             </div>
           </div>
-        </motion.footer>
+        </footer>
       </div>
 
       <ChatIcons />
