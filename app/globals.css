@@ -240,7 +240,6 @@ body {
 
 .shadow-hover {
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-}
   --secondary-600: #f57c00;
   --success-500: #4caf50;
   --warning-500: #ff9800;
@@ -470,7 +469,7 @@ body {
 
 .shadow-hover {
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-}--secondary-600: #f57c00;
+  --secondary-600: #f57c00;
   --success-500: #4caf50;
   --warning-500: #ff9800;
   --error-500: #f44336;
